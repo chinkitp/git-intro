@@ -123,10 +123,74 @@ Changes to be committed:
 
 	new file:   banks.txt
 	new file:   list/anz.txt
-```
+$ git commit -m "initial commit"
+  [master (root-commit) 50a6b98] initial commit
+  3 files changed, 4 insertions(+)
+  create mode 100644 banks.txt
+  create mode 100644 list/anz.txt
+  create mode 100644 list/nab.txt
+  Reading package lists... Done
+  Building dependency tree
+  Reading state information... Done
 
+$ tree -a
+.
+├── banks.txt
+├── .git
+│   ├── branches
+│   ├── COMMIT_EDITMSG
+│   ├── config
+│   ├── description
+│   ├── HEAD
+│   ├── hooks
+│   │   ├── applypatch-msg.sample
+│   │   ├── commit-msg.sample
+│   │   ├── post-update.sample
+│   │   ├── pre-applypatch.sample
+│   │   ├── pre-commit.sample
+│   │   ├── prepare-commit-msg.sample
+│   │   ├── pre-push.sample
+│   │   ├── pre-rebase.sample
+│   │   └── update.sample
+│   ├── index
+│   ├── info
+│   │   └── exclude
+│   ├── logs
+│   │   ├── HEAD
+│   │   └── refs
+│   │       └── heads
+│   │           └── master
+│   ├── objects
+│   │   ├── 50
+│   │   │   └── a6b985541e31c80f99efe7d597e719ad5e46de
+│   │   ├── 5b
+│   │   │   └── 68a6c2bfdeb38964cdf760c6148a05926c161e
+│   │   ├── 6e
+│   │   │   └── 4672d0ffc3a2dc6025f77be46239e1a505046e
+│   │   ├── b3
+│   │   │   └── 92c2e24ac523582e4b332b19c2f1345e44dc9d
+│   │   ├── f8
+│   │   │   └── d24db536e3a943fb8a2f755a594fef1d9ad299
+│   │   ├── f9
+│   │   │   └── 635f900490663d63e3ff55958e49b7c66389bf
+│   │   ├── info
+│   │   └── pack
+│   └── refs
+│       ├── heads
+│       │   └── master
+│       └── tags
+└── list
+    ├── anz.txt
+    └── nab.txt
+
+20 directories, 27 files
+
+```
+![Image of a commit](./commit.png)
 ## Tree Object 
 
+- A tree is a directory stored in git.
+- As seen in the image above, our first commit points at the root directory of the project(our 1st tree)
 
 ## Commit Object 
 
