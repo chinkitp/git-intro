@@ -99,7 +99,6 @@ $ echo "Website: http://www.nab.com.au" > list/nab.txt
 The directories and files we just added are not being tracked by git.
 
 ```bash
-#This needs to be redone..
 $ git status
 On branch master
 
@@ -269,8 +268,13 @@ $ cat .git/refs/heads/master
 - Since we can have many branches, the only way to keep track of what branch we're currently on is the Head. 
 ## Head
 
-We can have only 1 head & it is the pointer to the current commit...?
-Is head a pointer to the branch or a commit.
+We can have only 1 head & it is the pointer to the current branch.
+
+```bash
+$ cat .git/HEAD
+ref: refs/heads/master
+```
+- Our HEAD currently points to the master branch of our project.
 
 ## The 4 main parts of git
 A git project stores information in four areas : 
