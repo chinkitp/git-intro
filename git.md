@@ -348,6 +348,49 @@ $ git commit -m "second commit"
  1 file changed, 1 insertion(+)
 ```
 
+## Merging
+After you have finished implementing a new feature on a branch eg. the development branch we created earlier or some other branch you have, you want to bring that new feature into the main branch, so that everyone can use it. You can do so with the git merge or git pull command.
+The syntax for the commands is as follows:
+```bash
+#we currently have two branches. The one we're working on at the moment is the master branch. Let's create a new branch called the testing branch.
+$ git branch testing
+$ git checkout testing
+Switched to branch 'testing'
+$ echo "bank test" >> banks.txt
+# we have now modified the banks.txt file so let's commit the change we just made.
+$ git add .
+$ git commit -m"new test branch commit"
+[testing 5735525] new test branch commit
+ 1 file changed, 1 insertion(+)
+```
+ - Our testing branch is now one commit ahead of the master branch. So what if we wanted to bring the two branches to the same level. ie. Have all the changes we just made on the testing branch implemented on the master branch too?
+ - We do this by running the following commands : 
+ ```bash
+ # if we try to view the contents of the banks.txt folder, you'll notice that the most recent line we added isn't present. This is because the line was added to the testing # # # branch of our project. We're currently in the master. 
+ $ cat banks.txt
+ANZ
+NAB
+AMP
+# To copy the changes we made while in the testing branch on the master branch,
+ # we first have to switch to the master branch
+$ git checkout master
+Switched to branch 'master'
+$ git merge testing
+Updating 9693f04..5735525
+Fast-forward
+ banks.txt | 1 +
+ 1 file changed, 1 insertion(+)
+ $ cat banks.txt
+ANZ
+NAB
+AMP
+bank test
+# both the master and testing branches are now synced and exactly the same.
+ ```
+ - NB : Git can get very confused if there are uncommitted changes in the files when you ask it to perform a merge. So make sure to commit whatever changes you have made so far before you merge.
+ - A conflict arises if the commit to be merged in has a change in one place, and the current commit has a change in the same place. Git has no way of telling which change should take precedence.
+ - To resolve the commit, edit the files to fix the conflicting changes. Then run git add to add the resolved files, and run git commit to commit the repaired merge. Git remembers that you were in the middle of a merge, so it sets the parents of the commit correctly.
+
 References
 - https://git-scm.com/book/en/v2/Git-Internals-Git-Objects
 - https://www.mockflow.com
