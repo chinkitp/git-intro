@@ -229,6 +229,8 @@ Website: http://www.anz.com.au
 -  A single tree object contains one or more tree entries, each of which contains a SHA-1 pointer to a blob or subtree with its associated mode, type, and filename.
 ```
 $  git cat-file -p master^{tree}
+100644 blob 6e4672d0ffc3a2dc6025f77be46239e1a505046e    banks.txt
+040000 tree b392c2e24ac523582e4b332b19c2f1345e44dc9d    list
 ```
 ## Commit Object 
 - A commit object stores information about  who saved the snapshots, when they were saved, or why they were saved. 
@@ -262,8 +264,8 @@ $  tree .git/refs/heads/
 $ cat .git/refs/heads/master
 50a6b985541e31c80f99efe7d597e719ad5e46de
 ```
- - The output of the last command is a hash. As stated earlier, a branch is just a pointer to a commit, thus it goes without saying that `50a6b985541e31c80f99efe7d597e719ad5e46de` has to be commit. 
-- A look at fig 5 proves this to be correct. `50a6b985541e31c80f99efe7d597e719ad5e46de` is our initail commit.
+ - The output of the last command is a hash. As stated earlier, a branch is just a pointer to a commit, thus it goes without saying that `50a6b985541e31c80f99efe7d597e719ad5e46de` has to be a commit. 
+- A look at fig 5 proves this to be correct. `50a6b985541e31c80f99efe7d597e719ad5e46de` is our initial commit.
 - Since we can have many branches, the only way to keep track of what branch we're currently on is the Head. 
 ## Head
 
@@ -271,7 +273,7 @@ We can have only 1 head & it is the pointer to the current commit...?
 Is head a pointer to the branch or a commit.
 
 ## The 4 main parts of git
-A git project stores information in four aread : 
+A git project stores information in four areas : 
 1. Repository - this is basically like your git repo’s database.
 2. Index - This is a hypothetical layer which sit’s on top of the last commit’s layer. When you run the “git commit” command the 2 layers get’s merged. Any files that are in the commit layer, that has a newer file directly above it (in the “staging layer”), will get over-written by the newer (staged) file. Note, that a file’s content are tracked so that you can roll back to how the file looked like in any previous (commits) snapshots. Note the staging area is also referred to as the “index”
 3. Working area - This is the directory where all your project files and folders reside (along with the .git folder). Each of your files within this directory is in 1 of possible states, untracked, unmodified, modified, staged. Will cover more about file states later.
