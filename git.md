@@ -232,8 +232,8 @@ $  git cat-file -p master^{tree}
 040000 tree b392c2e24ac523582e4b332b19c2f1345e44dc9d    list
 ```
 ## Commit Object 
-- A commit object stores information about  who saved the snapshots, when they were saved, or why they were saved. 
-- We can test this by viewing the contents of one of our initial commit.
+- A commit object stores information about who saved the current state of our repository, when they saved this, or why they saved this. 
+- We can test this by viewing the contents of one of our commits i.e the initial commit.
 ```bash
 $  git cat-file -p 50a6
 tree 5b68a6c2bfdeb38964cdf760c6148a05926c161e
@@ -253,7 +253,20 @@ However, hashes for the trees and blobs will be alike on different machines if t
 - A branch is a pointer to a commit.
 - Running `$ git branch` should output master. The master branch is our current working branch.
 - We can have many branches on one project. The branches are stored in the  `.git/refs/heads/` directory.
-- For our case, we curretly only have one branch. That is the master branch.
+- For our current project, we curretly only have one branch. That is the master branch.
+- To create a new branch, run the following command : 
+```bash
+$ git branch development
+```
+- We now have two branches : 
+  1. master
+  2. development
+- To change the branch that you're currently working on and switch to another one eg. from master branch to development branch, run the command : 
+```bash
+git checkout development
+```
+- We are now in the development branch of our project. Any changes we make to our project will not affect the master branch of our project.
+- A common way to use Git branching is to maintain one “main” or “trunk” branch and create new branches to implement new features. Often the default Git branch, master, is used as the main branch.
 ```bash
 $  tree .git/refs/heads/ 
 .git/refs/heads/
@@ -264,7 +277,7 @@ $ cat .git/refs/heads/master
 50a6b985541e31c80f99efe7d597e719ad5e46de
 ```
  - The output of the last command is a hash. As stated earlier, a branch is just a pointer to a commit, thus it goes without saying that `50a6b985541e31c80f99efe7d597e719ad5e46de` has to be a commit. 
-- A look at fig 5 proves this to be correct. `50a6b985541e31c80f99efe7d597e719ad5e46de` is our initial commit.
+- A look at FIG 1 proves this to be correct. `50a6b985541e31c80f99efe7d597e719ad5e46de` is our initial commit.
 - Since we can have many branches, the only way to keep track of what branch we're currently on is the Head. 
 ## Head
 
@@ -274,7 +287,7 @@ We can have only 1 head & it is the pointer to the current branch.
 $ cat .git/HEAD
 ref: refs/heads/master
 ```
-- Our HEAD currently points to the master branch of our project.
+Our HEAD currently points to the master branch of our project.
 
 ## The 4 main parts of git
 A git project stores information in four areas : 
