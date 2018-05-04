@@ -279,7 +279,7 @@ A git project stores information in four areas :
 3. Working area - This is the directory where all your project files and folders reside (along with the .git folder). Each of your files within this directory is in 1 of possible states, untracked, unmodified, modified, staged. Will cover more about file states later.
 4. Stash
 
-![4 git areas](./4areas.png)
+![4 git areas](./4AREAS.png)
 
 To understand how most of the git commands you'll use work, you'll have to ask yourself the following two questions : 
 1. How does the command move data around the 4 areas.
@@ -290,7 +290,7 @@ To understand how most of the git commands you'll use work, you'll have to ask y
 
 1. Use the “git checkout” command to checkout the project. This will pull out the latest commit (snapshot) from the .git repositorie’s database (for a particular branch) and place it into the working directory. All the newly checked out files have the file state “unmodified”
 
-![Image of a commit](./4areas.png)
+![Image of a commit](./CHECKOUT.png)
 
 ```
 #make sure you're in the banks directory
@@ -320,7 +320,7 @@ no changes added to commit (use "git add" and/or "git commit -a")
 -------------------------------------------------------------------------------------
 3. Use the "git commit" command to add the file, to create a new snapshot which is made up from the previous commit "layer" along with the files in the "staged layer". This will change the file's state to "unmodified"
 
-![commit](./git_commit.png)
+![commit](./GIT_COMMIT.png)
 
 References
 - https://git-scm.com/book/en/v2/Git-Internals-Git-Objects
