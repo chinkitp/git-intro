@@ -191,7 +191,7 @@ $ tree -a
 
 
 
-```
+```bash
 $ git cat-file -p 50a6
 tree 5b68a6c2bfdeb38964cdf760c6148a05926c161e
 author Brian Matindi <brianmatindi12@gmail.com> 1525314405 +0930
@@ -227,7 +227,7 @@ Website: http://www.anz.com.au
   - The 1st tree object is that of the root directory. : `5b68`
   - The 2nd tree is that of the list directory :  `b392`
 -  A single tree object contains one or more tree entries, each of which contains a SHA-1 pointer to a blob or subtree with its associated mode, type, and filename.
-```
+```bash
 $  git cat-file -p master^{tree}
 100644 blob 6e4672d0ffc3a2dc6025f77be46239e1a505046e    banks.txt
 040000 tree b392c2e24ac523582e4b332b19c2f1345e44dc9d    list
@@ -235,7 +235,7 @@ $  git cat-file -p master^{tree}
 ## Commit Object 
 - A commit object stores information about  who saved the snapshots, when they were saved, or why they were saved. 
 - We can test this by viewing the contents of one of our initial commit.
-```
+```bash
 $  git cat-file -p 50a6
 tree 5b68a6c2bfdeb38964cdf760c6148a05926c161e
 author Brian Matindi <brianmatindi12@gmail.com> 1525314405 +0930
@@ -255,7 +255,7 @@ However, hashes for the trees and blobs will be alike on different machines if t
 - Running `$ git branch` should output master. The master branch is our current working branch.
 - We can have many branches on one project. The branches are stored in the  `.git/refs/heads/` directory.
 - For our case, we curretly only have one branch. That is the master branch.
-```
+```bash
 $  tree .git/refs/heads/ 
 .git/refs/heads/
 └── master
