@@ -294,7 +294,7 @@ Our HEAD currently points to the master branch of our project.
 ## The 4 main parts of git
 A git project stores information in four areas : 
 1. Repository - this is basically like your git repo’s database.
-2. Index - This is a hypothetical layer which sit’s on top of the last commit’s layer. When you run the “git commit” command the 2 layers get’s merged. Any files that are in the commit layer, that has a newer file directly above it (in the “staging layer”), will get over-written by the newer (staged) file. Note, that a file’s content are tracked so that you can roll back to how the file looked like in any previous (commits) snapshots. Note the staging area is also referred to as the “index”
+2. Index - The staging area is a file, generally contained in your Git directory, that stores information about what will go into your next commit. Its technical name in Git parlance is the “index”, but the phrase “staging area” works just as well.
 3. Working area - This is the directory where all your project files and folders reside (along with the .git folder). Each of your files within this directory is in 1 of possible states, untracked, unmodified, modified, staged. Will cover more about file states later.
 4. Stash
 
