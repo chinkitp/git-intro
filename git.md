@@ -294,8 +294,8 @@ Our HEAD currently points to the master branch of our project.
 ## The 4 main parts of git
 A git project stores information in four areas : 
 1. Repository - this is basically like your git repo’s database.
-2. Index - The staging area is a file, generally contained in your Git directory, that stores information about what will go into your next commit. Its technical name in Git parlance is the “index”, but the phrase “staging area” works just as well.
-3. Working area - This is the directory where all your project files and folders reside (along with the .git folder). Each of your files within this directory is in 1 of possible states, untracked, unmodified, modified, staged. Will cover more about file states later.
+2. Index - The staging area/index is a file, generally contained in your Git directory, that stores information about what will go into your next commit. Its technical name in Git parlance is the “index”, but the phrase “staging area” works just as well.
+3. Working area - This is the directory where all your project files and folders reside (along with the .git folder). Each of your files within this directory is in 1 of possible states, untracked, unmodified, modified, staged.
 4. Stash
 
 ![4 git areas](./4AREAS.png)
@@ -304,26 +304,26 @@ To understand how most of the git commands you'll use work, you'll have to ask y
 1. How does the command move data around the 4 areas.
 2. What does the command do to the repository area.
 
-> If you want to get a new file tracked by the git repository, then you do the following:
+- If you want to get a new file tracked by the git repository, then you do the following:
 -------------------------------------------------------------------------------------
 
-1. Use the “git checkout” command to checkout the project. This will pull out the latest commit (snapshot) from the .git repositorie’s database (for a particular branch) and place it into the working directory. All the newly checked out files have the file state “unmodified”
+1. Use the “git checkout” command to checkout the project. This will pull out the latest commit (snapshot) from the .git repository's database (for a particular branch) and place it into the working directory. All the newly checked out files have the file state “unmodified”
 
 ![Image of a commit](./CHECKOUT.png)
 
-```
+```bash
 #make sure you're in the banks directory
 $ git checkout master
 M       banks.txt
 Already on 'master'
 ```
 -------------------------------------------------------------------------------------
-2. add/create the file somewhere inside the working-directory. This will make git aware of the existence of this file it won't keep track of this file. i.e. the file's state is "untracked"
+2. Add/create the file somewhere inside the working-directory. This will make git aware of the existence of this file it won't keep track of this file. i.e. the file's state is "untracked"
 Use the "git add" command to place this file in the staging area, waiting to be merged into the previous commit (snapshot). This will change the file's state to "staged"
 
 ![add](./ADD.png)
 
-```
+```bash
 $ echo "AMP" >> banks.txt
 $ git status
 On branch master
@@ -340,6 +340,13 @@ no changes added to commit (use "git add" and/or "git commit -a")
 3. Use the "git commit" command to add the file, to create a new snapshot which is made up from the previous commit "layer" along with the files in the "staged layer". This will change the file's state to "unmodified"
 
 ![commit](./GIT_COMMIT.png)
+
+```bash
+$ git add .
+$ git commit -m "second commit"
+[master 9693f04] second commit
+ 1 file changed, 1 insertion(+)
+```
 
 References
 - https://git-scm.com/book/en/v2/Git-Internals-Git-Objects
