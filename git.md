@@ -270,9 +270,10 @@ git checkout development
 ```bash
 $  tree .git/refs/heads/ 
 .git/refs/heads/
+├── development
 └── master
 
-0 directories, 1 file
+0 directories, 2 files
 $ cat .git/refs/heads/master
 50a6b985541e31c80f99efe7d597e719ad5e46de
 ```
@@ -288,7 +289,8 @@ $ cat .git/HEAD
 ref: refs/heads/master
 ```
 Our HEAD currently points to the master branch of our project.
-
+- We can make it to point at our new `development` branch by editing the file above and replacing the text 'master' with 'development'. 
+- Or, git automatically does this for us when we switch branches using the `$ git checkout xxxxxxx` command. It replaces the text as stated above to whatever branch we'd like to switch to.
 ## The 4 main parts of git
 A git project stores information in four areas : 
 1. Repository - this is basically like your git repo’s database.
