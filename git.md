@@ -302,7 +302,7 @@ Already on 'master'
 2. add/create the file somewhere inside the working-directory. This will make git aware of the existence of this file it won't keep track of this file. i.e. the file's state is "untracked"
 Use the "git add" command to place this file in the staging area, waiting to be merged into the previous commit (snapshot). This will change the file's state to "staged"
 
-![add](./add.png)
+![add](./ADD.png)
 
 ```
 $ echo "AMP" >> banks.txt
