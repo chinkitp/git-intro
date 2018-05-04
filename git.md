@@ -366,6 +366,8 @@ $ git commit -m"new test branch commit"
  - Our testing branch is now one commit ahead of the master branch. So what if we wanted to bring the two branches to the same level. ie. Have all the changes we just made on the testing branch implemented on the master branch too?
  - We do this by running the following commands : 
  ```bash
+ $ git checkout master
+Switched to branch 'master'
  # if we try to view the contents of the banks.txt folder, you'll notice that the most recent line we added isn't present. This is because the line was added to the testing # # # branch of our project. We're currently in the master. 
  $ cat banks.txt
 ANZ
@@ -373,8 +375,6 @@ NAB
 AMP
 # To copy the changes we made while in the testing branch on the master branch,
  # we first have to switch to the master branch
-$ git checkout master
-Switched to branch 'master'
 $ git merge testing
 Updating 9693f04..5735525
 Fast-forward
