@@ -99,7 +99,6 @@ $ echo "Website: http://www.nab.com.au" > list/nab.txt
 The directories and files we just added are not being tracked by git.
 
 ```bash
-#This needs to be redone..
 $ git status
 On branch master
 
@@ -123,19 +122,274 @@ Changes to be committed:
 
 	new file:   banks.txt
 	new file:   list/anz.txt
+$ git commit -m "initial commit"
+  [master (root-commit) 50a6b98] initial commit
+  3 files changed, 4 insertions(+)
+  create mode 100644 banks.txt
+  create mode 100644 list/anz.txt
+  create mode 100644 list/nab.txt
+  Reading package lists... Done
+  Building dependency tree
+  Reading state information... Done
+
+$ tree -a
+.
+├── banks.txt
+├── .git
+│   ├── branches
+│   ├── COMMIT_EDITMSG
+│   ├── config
+│   ├── description
+│   ├── HEAD
+│   ├── hooks
+│   │   ├── applypatch-msg.sample
+│   │   ├── commit-msg.sample
+│   │   ├── post-update.sample
+│   │   ├── pre-applypatch.sample
+│   │   ├── pre-commit.sample
+│   │   ├── prepare-commit-msg.sample
+│   │   ├── pre-push.sample
+│   │   ├── pre-rebase.sample
+│   │   └── update.sample
+│   ├── index
+│   ├── info
+│   │   └── exclude
+│   ├── logs
+│   │   ├── HEAD
+│   │   └── refs
+│   │       └── heads
+│   │           └── master
+│   ├── objects
+│   │   ├── 50
+│   │   │   └── a6b985541e31c80f99efe7d597e719ad5e46de
+│   │   ├── 5b
+│   │   │   └── 68a6c2bfdeb38964cdf760c6148a05926c161e
+│   │   ├── 6e
+│   │   │   └── 4672d0ffc3a2dc6025f77be46239e1a505046e
+│   │   ├── b3
+│   │   │   └── 92c2e24ac523582e4b332b19c2f1345e44dc9d
+│   │   ├── f8
+│   │   │   └── d24db536e3a943fb8a2f755a594fef1d9ad299
+│   │   ├── f9
+│   │   │   └── 635f900490663d63e3ff55958e49b7c66389bf
+│   │   ├── info
+│   │   └── pack
+│   └── refs
+│       ├── heads
+│       │   └── master
+│       └── tags
+└── list
+    ├── anz.txt
+    └── nab.txt
+
+20 directories, 27 files
+
 ```
+### The object database (FIG 1)
+![Image of a commit](./commit2.png)
 
+
+
+```bash
+$ git cat-file -p 50a6
+tree 5b68a6c2bfdeb38964cdf760c6148a05926c161e
+author Brian Matindi <brianmatindi12@gmail.com> 1525314405 +0930
+committer Brian Matindi <brianmatindi12@gmail.com> 1525314405 +0930
+
+initial commit
+
+$ git cat-file -p 5b68
+100644 blob 6e4672d0ffc3a2dc6025f77be46239e1a505046e    banks.txt
+040000 tree b392c2e24ac523582e4b332b19c2f1345e44dc9d    list
+
+$ git cat-file -p 6e46
+ANZ
+NAB
+
+$ git cat-file -p b392
+100644 blob f9635f900490663d63e3ff55958e49b7c66389bf    anz.txt
+100644 blob f8d24db536e3a943fb8a2f755a594fef1d9ad299    nab.txt
+
+$ git cat-file -p f8d2
+Website: http://www.nab.com.au
+
+$ git cat-file -p f963
+Website: http://www.anz.com.au
+
+```
 ## Tree Object 
-
-
+- All the content in git is stored as tree and blob objects.
+- A tree is a directory stored in git while the blob is the content eg.file or text stored in the directory(tree).
+- It can be considered an equivalent to a directory on your system.
+- As seen in the image above, our first commit points at the root directory of the project(our 1st tree)
+- As on the `fig1` above, there are 2 trees : 
+  - The 1st tree object is that of the root directory. : `5b68`
+  - The 2nd tree is that of the list directory :  `b392`
+-  A single tree object contains one or more tree entries, each of which contains a SHA-1 pointer to a blob or subtree with its associated mode, type, and filename.
+```bash
+$  git cat-file -p master^{tree}
+100644 blob 6e4672d0ffc3a2dc6025f77be46239e1a505046e    banks.txt
+040000 tree b392c2e24ac523582e4b332b19c2f1345e44dc9d    list
+```
 ## Commit Object 
+- A commit object stores information about who saved the current state of our repository, when they saved this, or why they saved this. 
+- We can test this by viewing the contents of one of our commits i.e the initial commit.
+```bash
+$  git cat-file -p 50a6
+tree 5b68a6c2bfdeb38964cdf760c6148a05926c161e
+author Brian Matindi <brianmatindi12@gmail.com> 1525314405 +0930
+committer Brian Matindi <brianmatindi12@gmail.com> 1525314405 +0930
+
+initial commit
+```
+- As seen above, the first commit contains : 
+  - A pointer to one of our trees i.e the root directory of the project.
+  - Information about the author of the changes made.
+  - The commit message. 
+- NB : Since the commit author varies on various machines, that's why if you tried running the same exact commands we've run in this tutorial, you might not get the same results for the hashes belonging to the commit.
+However, hashes for the trees and blobs will be alike on different machines if the content of the files is the same. 
 
 ## Branch 
+- A branch is a pointer to a commit.
+- Running `$ git branch` should output master. The master branch is our current working branch.
+- We can have many branches on one project. The branches are stored in the  `.git/refs/heads/` directory.
+- For our current project, we curretly only have one branch. That is the master branch.
+- To create a new branch, run the following command : 
+```bash
+$ git branch development
+```
+- We now have two branches : 
+  1. master
+  2. development
+- To change the branch that you're currently working on and switch to another one eg. from master branch to development branch, run the command : 
+```bash
+git checkout development
+```
+- We are now in the development branch of our project. Any changes we make to our project will not affect the master branch of our project.
+- A common way to use Git branching is to maintain one “main” or “trunk” branch and create new branches to implement new features. Often the default Git branch, master, is used as the main branch.
+```bash
+$  tree .git/refs/heads/ 
+.git/refs/heads/
+├── development
+└── master
 
+0 directories, 2 files
+$ cat .git/refs/heads/master
+50a6b985541e31c80f99efe7d597e719ad5e46de
+```
+ - The output of the last command is a hash. As stated earlier, a branch is just a pointer to a commit, thus it goes without saying that `50a6b985541e31c80f99efe7d597e719ad5e46de` has to be a commit. 
+- A look at FIG 1 proves this to be correct. `50a6b985541e31c80f99efe7d597e719ad5e46de` is our initial commit.
+- Since we can have many branches, the only way to keep track of what branch we're currently on is the Head. 
 ## Head
 
-We can have only 1 head & it is the pointer to the current commit...?
-Is head a pointer to the branch or a commit.
+We can have only 1 head & it is the pointer to the current branch.
+
+```bash
+$ cat .git/HEAD
+ref: refs/heads/master
+```
+Our HEAD currently points to the master branch of our project.
+- We can make it to point at our new `development` branch by editing the file above and replacing the text 'master' with 'development'. 
+- Or, git automatically does this for us when we switch branches using the `$ git checkout xxxxxxx` command. It replaces the text as stated above to whatever branch we'd like to switch to.
+## The 4 main parts of git
+A git project stores information in four areas : 
+1. Repository - this is basically like your git repo’s database.
+2. Index - The staging area/index is a file, generally contained in your Git directory, that stores information about what will go into your next commit. Its technical name in Git parlance is the “index”, but the phrase “staging area” works just as well.
+3. Working area - This is the directory where all your project files and folders reside (along with the .git folder). Each of your files within this directory is in 1 of possible states, untracked, unmodified, modified, staged.
+4. Stash
+
+![4 git areas](./4AREAS.png)
+
+To understand how most of the git commands you'll use work, you'll have to ask yourself the following two questions : 
+1. How does the command move data around the 4 areas.
+2. What does the command do to the repository area.
+
+- If you want to get a new file tracked by the git repository, then you do the following:
+-------------------------------------------------------------------------------------
+
+1. Use the “git checkout” command to checkout the project. This will pull out the latest commit (snapshot) from the .git repository's database (for a particular branch) and place it into the working directory. All the newly checked out files have the file state “unmodified”
+
+![Image of a commit](./CHECKOUT.png)
+
+```bash
+#make sure you're in the banks directory
+$ git checkout master
+M       banks.txt
+Already on 'master'
+```
+-------------------------------------------------------------------------------------
+2. Add/create the file somewhere inside the working-directory. This will make git aware of the existence of this file it won't keep track of this file. i.e. the file's state is "untracked"
+Use the "git add" command to place this file in the staging area, waiting to be merged into the previous commit (snapshot). This will change the file's state to "staged"
+
+![add](./ADD.png)
+
+```bash
+$ echo "AMP" >> banks.txt
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   banks.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+```
+-------------------------------------------------------------------------------------
+3. Use the "git commit" command to add the file, to create a new snapshot which is made up from the previous commit "layer" along with the files in the "staged layer". This will change the file's state to "unmodified"
+
+![commit](./GIT_COMMIT.png)
+
+```bash
+$ git add .
+$ git commit -m "second commit"
+[master 9693f04] second commit
+ 1 file changed, 1 insertion(+)
+```
+
+## Merging
+After you have finished implementing a new feature on a branch eg. the development branch we created earlier or some other branch you have, you want to bring that new feature into the main branch, so that everyone can use it. You can do so with the git merge or git pull command.
+The syntax for the commands is as follows:
+```bash
+#we currently have two branches. The one we're working on at the moment is the master branch. Let's create a new branch called the testing branch.
+$ git branch testing
+$ git checkout testing
+Switched to branch 'testing'
+$ echo "bank test" >> banks.txt
+# we have now modified the banks.txt file so let's commit the change we just made.
+$ git add .
+$ git commit -m"new test branch commit"
+[testing 5735525] new test branch commit
+ 1 file changed, 1 insertion(+)
+```
+ - Our testing branch is now one commit ahead of the master branch. So what if we wanted to bring the two branches to the same level. ie. Have all the changes we just made on the testing branch implemented on the master branch too?
+ - We do this by running the following commands : 
+ ```bash
+ $ git checkout master
+Switched to branch 'master'
+ # if we try to view the contents of the banks.txt folder, you'll notice that the most recent line we added isn't present. This is because the line was added to the testing # # # branch of our project. We're currently in the master. 
+ $ cat banks.txt
+ANZ
+NAB
+AMP
+# To copy the changes we made while in the testing branch on the master branch,
+ # we first have to switch to the master branch
+$ git merge testing
+Updating 9693f04..5735525
+Fast-forward
+ banks.txt | 1 +
+ 1 file changed, 1 insertion(+)
+ $ cat banks.txt
+ANZ
+NAB
+AMP
+bank test
+# both the master and testing branches are now synced and exactly the same.
+ ```
+ - NB : Git can get very confused if there are uncommitted changes in the files when you ask it to perform a merge. So make sure to commit whatever changes you have made so far before you merge.
+ - A conflict arises if the commit to be merged in has a change in one place, and the current commit has a change in the same place. Git has no way of telling which change should take precedence.
+ - To resolve the commit, edit the files to fix the conflicting changes. Then run git add to add the resolved files, and run git commit to commit the repaired merge. Git remembers that you were in the middle of a merge, so it sets the parents of the commit correctly.
 
 References
 - https://git-scm.com/book/en/v2/Git-Internals-Git-Objects
