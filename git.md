@@ -198,7 +198,7 @@ $ tree -a
 
 ```
 ### The object database (FIG 1)
-![Image of a commit](./commit2.png)
+![Image of a commit](./images/five.png)
 
 
 
@@ -290,17 +290,44 @@ A git project stores information in four areas :
 3. Working area - This is the directory where all your project files and folders reside (along with the .git folder). Each of your files within this directory is in 1 of possible states, untracked, unmodified, modified, staged.
 4. Stash
 
-![4 git areas](./4AREAS.png)
+![4 git areas](./images/one.png)
 
 To understand how most of the git commands you'll use work, you'll have to ask yourself the following two questions : 
 1. How does the command move data around the 4 areas.
 2. What does the command do to the repository area.
 
-![4 git areas](./commands_table.png)
+![4 git areas](./images/three.png)
+
 
 ## Merging
 After you have finished implementing a new feature on a branch eg. the development branch we created earlier or some other branch you have, you want to bring that new feature into the main branch, so that everyone can use it. You can do so with the git merge or git pull command.
 The syntax for the commands is as follows:
+- Running `$ git branch` should output master. The master branch is our current working branch.
+- We can have many branches on one project. The branches are stored in the  `.git/refs/heads/` directory.
+- For our current project, we curretly only have one branch. That is the master branch.
+- To create a new branch, run the following command : 
+```bash
+$ git branch development
+```
+- We now have two branches : 
+  1. master
+  2. development
+- To change the branch that you're currently working on and switch to another one eg. from master branch to development branch, run the command : 
+```bash
+git checkout development
+```
+- We are now in the development branch of our project. Any changes we make to our project will not affect the master branch of our project.
+- A common way to use Git branching is to maintain one “main” or “trunk” branch and create new branches to implement new features. Often the default Git branch, master, is used as the main branch.
+```bash
+$  tree .git/refs/heads/ 
+.git/refs/heads/
+├── development
+└── master
+
+0 directories, 2 files
+$ cat .git/refs/heads/master
+50a6b985541e31c80f99efe7d597e719ad5e46de
+```
 ```bash
 #we currently have two branches. The one we're working on at the moment is the master branch. Let's create a new branch called the testing branch.
 $ git branch testing
@@ -340,6 +367,20 @@ bank test
  - NB : Git can get very confused if there are uncommitted changes in the files when you ask it to perform a merge. So make sure to commit whatever changes you have made so far before you merge.
  - A conflict arises if the commit to be merged in has a change in one place, and the current commit has a change in the same place. Git has no way of telling which change should take precedence.
  - To resolve the commit, edit the files to fix the conflicting changes. Then run git add to add the resolved files, and run git commit to commit the repaired merge. Git remembers that you were in the middle of a merge, so it sets the parents of the commit correctly.
+
+![4 git areas](./images/four.png)
+
+## Rebase
+- Merge and rebase aren't very different from each other. The difference is that : 
+- Merge takes all the changes in one branch and merges them into another branch in one commit.
+- Rebase says I want the point at which I branched to move to a new starting point
+So when do you use either one?
+
+Merge
+- Let's say you have created a branch for the purpose of developing a single feature. When you want to bring those changes back to master, you probably want merge (you don't care about maintaining all of the interim commits).
+
+Rebase
+- A second scenario would be if you started doing some development and then another developer made an unrelated change. You probably want to pull and then rebase to base your changes from the current version from the repo.
 
 References
 - https://git-scm.com/book/en/v2/Git-Internals-Git-Objects
